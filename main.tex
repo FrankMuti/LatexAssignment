@@ -17,9 +17,9 @@
 \usepackage{xparse}
 \usepackage{esint} 
 \usepackage{mathtools}
-
-\usepackage{biblatex}
-\addbibresource{main.bib}
+\usepackage{natbib}
+%\usepackage{biblatex}
+%\addbibresource{main.bib}
 
 \usepackage{bigintcalc}
 \setcounter{secnumdepth}{4}
@@ -29,6 +29,7 @@
 \titlespacing*{\paragraph}
 {0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
 
+%% Writing Algorithms
 \makeatletter
 \def\BFState{\State\hskip-\ALG@thislm}
 \makeatother
@@ -84,13 +85,13 @@
 		
 		\vspace{0.5cm}		
 		\LARGE
-		\LaTeX \;Document
+		\LaTeX \; Document
 		\vspace{1.5cm}
 		
 		\textbf{Francis Muti} \textsc{- I63/1176/2018}
 		\vfill
 		
-		A \LaTeX \;document to showcase scientific writing and
+		A \LaTeX \; document to showcase scientific writing and
 		use of mathematical symbols.
 		
 		\vspace{0.8cm}
@@ -102,6 +103,10 @@
 		\today \\
 	\end{center}
 \end{titlepage}
+
+\section*{Introduction}
+For this assignment, I worked on different mathematical formulas in 
+\LaTeX. I was guided by Jason Gross' \LaTeX \; exercises \cite{latex_exercise}.
 
 \section{Latex Exercise}
 \label{sec:exercise}
@@ -288,14 +293,15 @@
 	\newpage
 	\subsection{Insane}
 	Write a command \texttt{outputcode}
-	 which outputs the code of the document being typeset.\\\\
+	 which outputs the code of the document being typeset.
+	\cite{primes}\\\\
 	%% Source : https://tex.stackexchange.com/questions/134305/how-to-produce-a-list-of-prime-numbers-in-latex
 	Primes (1 - 10):\;\;\;\outputcode{1}{10}\\
 	Primes (1 - 20):\;\;\;\outputcode{1}{20}\\
 	Primes (50 - 100):\;\outputcode{50}{75}
 	
 	\subsection{Diabolical}
-	The Ackermann function is defined as \cite{latex}
+	The Ackermann function is defined as \cite{ackermann}
 	\begin{gather*}	
 		A(m, n) = \begin{cases}
 			n+1 & \text{if $m = 0$}\\
@@ -307,9 +313,23 @@
 	\ackermann(2, 2)
 	\ackermann(1, 2)
 	
+\newpage
+\begin{thebibliography}{9}	
+	\bibitem{latex_exercise}
+	Jason Ross, \LaTeX Exercises
+	\\\href{https://web.mit.edu/~jgross/Public/latex/exercises.pdf}{ \texttt{https://web.mit.edu/~jgross/Public/latex/exercises.pdf}}
 	
-\printbibheading
-\printbibliography
+	\bibitem{primes}
+	Primes in \LaTeX
+	\\\href{https://tex.stackexchange.com/questions/134305/how-to-produce-a-list-of-prime-numbers-in-latex}{\texttt{https://tex.stackexchange.com}}
+	
+	\bibitem{ackermann}
+	Ackermann Function
+	\\\href{https://tex.stackexchange.com/questions/584112/ackermann-function}
+	{\texttt{https://tex.stackexchange.com/questions/584112/ackermann-function}}
+
+\end{thebibliography}
+
 \end{document}
 
 
