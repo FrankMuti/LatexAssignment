@@ -16,7 +16,12 @@
 \usepackage{listings}
 \usepackage{xparse}
 \usepackage{esint} 
+\usepackage{mathtools}
 
+\usepackage{biblatex}
+\addbibresource{main.bib}
+
+\usepackage{bigintcalc}
 \setcounter{secnumdepth}{4}
 
 \titleformat{\paragraph}
@@ -38,8 +43,38 @@
 \newcommand{\normal@abs}[2][]{\mathopen{#1|}#2\mathclose{#1|}}
 \makeatother
 
-% Paragraph indentation
+%% x bar
+\newcommand{\xbar}[1]{\mskip.5\thinmuskip\overline{\mskip-.5\thinmuskip {#1} \mskip-.5\thinmuskip}\mskip.5\thinmuskip} 
+
+%% Paragraph indentation
 \setlength{\parindent}{0ex}
+
+
+%% Insane Section : Produce primes
+\makeatletter
+\def\outputcode#1#2{{%
+  \def\comma{\def\comma{, }}%
+  \count@\@ne\@tempcntb#2\relax\@curtab#1\relax
+  \@outputcode}}
+\def\@outputcode{\loop\advance\count@\@ne
+\expandafter\ifx\csname p-\the\count@\endcsname\relax
+\ifnum\@tempcntb<\count@\else
+  \ifnum\count@<\@curtab\else\comma\the\count@\fi\fi\else\repeat
+\@tempcnta\count@\loop\advance\@tempcnta\count@
+\expandafter\let\csname p-\the\@tempcnta\endcsname\@ne
+\ifnum\@tempcnta<\@tempcntb\repeat
+\ifnum\@tempcntb>\count@\expandafter\@outputcode\fi}
+\makeatother
+
+%% Diabolical : Ackermann function
+%% Recursive function
+\def\afterfi#1#2\fi{\fi#1}
+\def\Ac#1#2{\ifnum#1=0 \afterfi{\the\numexpr#2+1\relax}%
+            \else \afterfi{\ifnum#2=0 \afterfi{\Aeval{#1-1}{1}}%
+                           \else \afterfi{\Aeval{#1-1}{\Aeval{#1}{#2-1}}}\fi}\fi}
+\def\Aeval#1#2{\expanded{\noexpand\Ac{\the\numexpr#1}{\the\numexpr#2}}}
+\def\ackermann(#1,#2){$ackermann(#1,#2)=\Ac{#1}{#2}$\par}
+
 \begin{document}
 \begin{titlepage}
 	\begin{center}
@@ -131,19 +166,19 @@
 	\text{OH} ^{-} (aq) \\
 	\Gamma (n+1) \stackrel{def}{=} 
 	\int_0 ^{\infty} e ^{-t}t ^n \text{d}t\\
-	\text{gcd($n, m$ mod $n$);} \quad x \equiv y \quad \text{(mod $b$);}
+	\text{$\gcd$($n, m$ mod $n$);} \quad x \equiv y \quad \text{(mod $b$);}
 	\; x \equiv y \quad \text{(mod $c$); } \quad x \equiv y \quad (d)
 	\end{gather}\\
 	
 	In the following, note the bold symbols.
 	\begin{gather}
 		\begin{split}
-			\nabla \cdot \text{\bf{E}} &= \frac{\rho}{\varepsilon_0}\\
-			\nabla \cdot \text{\bf{B}} &= 0\\
-			\nabla \times \text{\bf{E}} &= 
-			-\frac{\partial \text{\bf{B}}}{\partial t}\\
-			\nabla \times \text{\bf{B}} &= \mu_0\text{\bf{J}} +
-			\mu_0\varepsilon_0 \frac{\partial \text{\bf{B}}}{\partial t}
+			\nabla \cdot \mathbf{E} &= \frac{\rho}{\varepsilon_0}\\
+			\nabla \cdot \mathbf{B} &= 0\\
+			\nabla \times \mathbf{E} &= 
+			-\frac{\partial \mathbf{B}}{\partial t}\\
+			\nabla \times \mathbf{B} &= \mu_0\text{\bf{J}} +
+			\mu_0\varepsilon_0 \frac{\partial \mathbf{B}}{\partial t}
 		\end{split}
 	\end{gather}
 	
@@ -153,13 +188,13 @@
 	
 	\begin{gather}
 		\begin{split}
-			\oiint_{\partial V} \text{\bf{E}} \cdot \text{d \bf{A}} &=
+			\oiint_{\partial V} \mathbf{E} \cdot \text{d \bf{A}} &=
 			\frac{\mathcal{Q}(V)}{\varepsilon_0}\\
-			\oiint_{\partial V} \text{\bf{B}} \cdot \text{d \bf{A}} &= 0\\
-			\oint_{\partial S}  \text{\bf{E}} \cdot \text{d \bf{l}} &=
+			\oiint_{\partial V} \mathbf{B} \cdot \mathbf{A} &= 0\\
+			\oint_{\partial S}  \mathbf{E}\cdot \text{d}\mathbf{l} &=
 			-\frac{\partial \Phi_{B, S}}{\partial t}\\
-			\oint_{\partial S} \text{\bf{B}} \cdot \text{d \bf{l}} &=
-			\mu_0 {\bf{I}}_S + \mu_0 \varepsilon_0
+			\oint_{\partial S} \mathbf{B} \cdot \text{d} \mathbf{l} &=
+			\mu_0 {\mathbf{I}}_S + \mu_0 \varepsilon_0
 			 \frac{\partial \Phi_{B, S}}{\partial t}
 		\end{split}
 	\end{gather}
@@ -198,7 +233,83 @@
 	\end{tabular}
 	\end{gather}
 	
-	Note the locations of the bounds
+	Note the locations of the bounds on the summation in the following
+	exercise.
+	
+	\begin{gather}
+		\sigma = \sqrt{\frac{1}{N}
+		 \sum\limits_{i=1} ^N {p_i(x_i - \xbar{x}) ^2}}= 
+		 \sqrt{\dfrac{\sum\limits_{i=1}^{N} 
+		 {p_i(x_i - \xbar{x}) ^2}}{N}}\\
+		\varphi(n) = n \cdot 
+		\prod\limits_{\stackrel{p|n}{p\; \text{prime}}} (1 - \frac{1}{p})
+	\end{gather}
+	
+	If you \texttt{\textbackslash usepackage \{mathtools\}}, you 
+	can make it look like
+	\begin{gather}
+		\varphi(n) = n \cdot 
+		\prod\limits_{\stackrel{p|n}{p\; \text{prime}}} 
+		(1 - \frac{1}{p})\\
+		\prescript{4}{12}{\mathbf{C}}\prescript{5+}{2}{}\quad
+		\prescript{14}{2}{\mathbf{C}}\prescript{5+}{2}{}\quad
+		\prescript{4}{12}{\mathbf{C}}\prescript{5+}{2}{}\quad
+		\prescript{14}{}{\mathbf{C}}\prescript{5+}{2}{}\quad
+		\prescript{}{12}{\mathbf{C}}\prescript{5+}{2}{}\quad
+	\end{gather}
+	
+	In the following, note the size of /, and the spacing
+	on the sizes of the |.
+	
+	\begin{gather}
+		\begin{split}
+		&\mathbb{Q} \cong \bigg 
+		\{ \frac{a}{b} \bigg{|}\; a, b \in \mathbb{Z} 
+		\text{\;and\;} b \neq 0 \bigg{\}} \;\ \bigg {/ \sim}\\
+		&\frac{a}{b} \sim \frac{c}{d} \Longleftrightarrow ad - bc = 0
+		\end{split}
+	\end{gather}
+	
+	Notice both the horizontal and vertical spacing in the following 
+	exercise. 
+	%% (TODO: the vertical spacing issue)
+	
+	\begin{gather}
+	\begin{split}
+	1 \uparrow 1 = {\ts 1} 1 &= 1\\
+	2 \uparrow \uparrow 2 = {\ts 2} 2 &= 4\\[1pt]
+	3 \uparrow \uparrow \uparrow 3 = {\ts {\ts 3}} {\ts 3} 3 &=
+	3 \uparrow \uparrow 3 \uparrow \uparrow 3 =
+	\underbrace{3 ^{3 ^{3 ^{3 ^{3 ^{3 ^{\cdot ^{ \cdot ^{\cdot ^{3}}}}}}}}}}
+	_{3 ^{3 ^{3}} \text{threes}}
+	\end{split}
+	\end{gather}
+	
+	\newpage
+	\subsection{Insane}
+	Write a command \texttt{outputcode}
+	 which outputs the code of the document being typeset.\\\\
+	%% Source : https://tex.stackexchange.com/questions/134305/how-to-produce-a-list-of-prime-numbers-in-latex
+	Primes (1 - 10):\;\;\;\outputcode{1}{10}\\
+	Primes (1 - 20):\;\;\;\outputcode{1}{20}\\
+	Primes (50 - 100):\;\outputcode{50}{75}
+	
+	\subsection{Diabolical}
+	The Ackermann function is defined as \cite{latex}
+	\begin{gather*}	
+		A(m, n) = \begin{cases}
+			n+1 & \text{if $m = 0$}\\
+			A(m-1, 1) & \text{if $m > 0$ \;and\; $n=0$}\\
+			A(m-1, A(m, n-1)) & \text{if $m > 0$ and $n > 0$}
+		\end{cases}
+	\end{gather*}
+	Only outputs the result.\\
+	\ackermann(2, 2)
+	\ackermann(1, 2)
+	
+	
+\printbibheading
+\printbibliography
 \end{document}
 
 
