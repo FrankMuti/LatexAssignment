@@ -1,0 +1,228 @@
+%% Author : Francis Muti - I63/1176/2018
+%% STA 322 - Assignment
+\documentclass[a4paper]{article}
+
+%% Packages
+\usepackage{amsmath, amssymb}
+\usepackage[noend]{algpseudocode}
+\usepackage{titlesec}
+\usepackage{hyperref}
+\usepackage{babel, blindtext}
+\usepackage{float}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{mathpazo}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{xparse}
+\usepackage{esint} 
+
+\setcounter{secnumdepth}{4}
+
+\titleformat{\paragraph}
+{\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
+\titlespacing*{\paragraph}
+{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+
+\makeatletter
+\def\BFState{\State\hskip-\ALG@thislm}
+\makeatother
+
+%% Superscript command 
+\newcommand{\ts}{\textsuperscript}
+
+%% Absolute Command : abs{x} = |x|
+\makeatletter
+\DeclareRobustCommand{\abs}{\@ifstar\star@abs\normal@abs}
+\newcommand{\star@abs}[1]{\left|#1\right|}
+\newcommand{\normal@abs}[2][]{\mathopen{#1|}#2\mathclose{#1|}}
+\makeatother
+
+% Paragraph indentation
+\setlength{\parindent}{0ex}
+\begin{document}
+\begin{titlepage}
+	\begin{center}
+		\vspace*{1cm}
+		\Huge
+		\textbf{STA 322 - Assignment}
+		
+		\vspace{0.5cm}		
+		\LARGE
+		\LaTeX \;Document
+		\vspace{1.5cm}
+		
+		\textbf{Francis Muti} \textsc{- I63/1176/2018}
+		\vfill
+		
+		A \LaTeX \;document to showcase scientific writing and
+		use of mathematical symbols.
+		
+		\vspace{0.8cm}
+		\includegraphics[width=0.4\textwidth]{uon.jpg}
+		
+		\Large
+		School of Mathematics\\
+		University of Nairobi\\
+		\today \\
+	\end{center}
+\end{titlepage}
+
+\section{Latex Exercise}
+\label{sec:exercise}
+	\subsection{Easy}
+	%\addtolength{\jot}{1em}
+	\begin{gather}
+		\text{Please type me! \;The quick brown fox jumps over 
+		the lazy dog} \\
+		e ^{i\pi} + 1 =  0\\
+		e ^{i\theta} = \cos\theta + i\sin\theta\\
+		G_{\mu v} + \Lambda g_{\mu v} = \frac{8 \pi G}{c ^4} T_{\mu v}\\
+		x = \frac{-b \pm \sqrt{b ^2 - 4ac}}{2a}\\
+		\vec{L} = \vec{r} \times \vec{p}\\
+		\sqrt[3]{2}\\
+		(x + y) ^n = \sum_{r=0} ^n \binom{n}{r} x ^r y ^{n-r}\\
+		\sqrt{\frac{a_1 ^2 + \dots + a_n ^2}{n}} \geq 
+		\frac{a_1 + \dots + a_n}{n} \geq
+		\sqrt[n]{a_1\dots a_n} \geq 
+		\frac{n}{\frac{1}{a_1} + \dots + \frac{1}{a_n}}\\
+		\abs{\langle x, y \rangle} ^2 
+		\leq \langle x, x \rangle \cdot \langle y, y \rangle\\
+		\begin{split}	
+			&\text{\textbf{A1:}} \; \varphi \longrightarrow 
+			(\psi \rightarrow \varphi)\\
+			&\text{\textbf{A2:}} \; (\varphi \rightarrow 
+			(\psi \rightarrow \theta)) \longrightarrow
+			((\psi \rightarrow \varphi) \rightarrow (\phi \rightarrow
+			\theta))\\
+			&\text{\textbf{A3:}} \; (\neg \varphi \rightarrow
+			\neg \psi) \longrightarrow (\psi \rightarrow \varphi)
+        \end{split}
+	\end{gather}
+	
+	\newpage
+
+	\subsection{Medium}
+	\begin{gather}	
+	1_A =
+	\begin{cases} 
+		1 &\text{if $x\in A$}\\ 
+		0 &\text{if $x\notin A$}\\ 
+	\end{cases}\\
+	n \underbrace{\uparrow \dots \uparrow}_n n = 
+	n \rightarrow n \rightarrow n
+	\end{gather}
+	
+	In the following, not the spacing between the $=$ and the
+	${\ts 1} 1$, ${\ts 2} 2$, and ${\ts {\ts 3}} {\ts 3} 3$
+	\begin{gather}
+	\begin{split}
+	1 \uparrow 1 = {\ts 1} 1 &= 1\\
+	2 \uparrow \uparrow 2 = {\ts 2} 2 &= 4\\
+	3 \uparrow \uparrow \uparrow 3 = {\ts {\ts 3}} {\ts 3} 3 &=
+	3 \uparrow \uparrow 3 \uparrow \uparrow 3 =
+	\underbrace{3 ^{3 ^{3 ^{3 ^{3 ^{3 ^{\cdot ^{ \cdot ^{\cdot ^{3}}}}}}}}}}
+	_{3 ^{3 ^{3}} \text{threes}}
+	\end{split}\\
+	\frac{\text{d}}{\text{d}x} = \lim_{\Delta x \rightarrow 0}
+	\frac{f(x + \Delta x) - f(x)}{\Delta x}\\
+	\text{H}_2 \text{O}(\ell) + \text{H}_2 \text{O}(\ell)
+	\leftrightharpoons \text{H}_3 \text{O} ^{+} (aq) +
+	\text{OH} ^{-} (aq) \\
+	\Gamma (n+1) \stackrel{def}{=} 
+	\int_0 ^{\infty} e ^{-t}t ^n \text{d}t\\
+	\text{gcd($n, m$ mod $n$);} \quad x \equiv y \quad \text{(mod $b$);}
+	\; x \equiv y \quad \text{(mod $c$); } \quad x \equiv y \quad (d)
+	\end{gather}\\
+	
+	In the following, note the bold symbols.
+	\begin{gather}
+		\begin{split}
+			\nabla \cdot \text{\bf{E}} &= \frac{\rho}{\varepsilon_0}\\
+			\nabla \cdot \text{\bf{B}} &= 0\\
+			\nabla \times \text{\bf{E}} &= 
+			-\frac{\partial \text{\bf{B}}}{\partial t}\\
+			\nabla \times \text{\bf{B}} &= \mu_0\text{\bf{J}} +
+			\mu_0\varepsilon_0 \frac{\partial \text{\bf{B}}}{\partial t}
+		\end{split}
+	\end{gather}
+	
+	For the following exercise, you will need to use 
+	\texttt{\textbackslash usepackage \{esint\}}
+	to get the symbol $\oiint$.
+	
+	\begin{gather}
+		\begin{split}
+			\oiint_{\partial V} \text{\bf{E}} \cdot \text{d \bf{A}} &=
+			\frac{\mathcal{Q}(V)}{\varepsilon_0}\\
+			\oiint_{\partial V} \text{\bf{B}} \cdot \text{d \bf{A}} &= 0\\
+			\oint_{\partial S}  \text{\bf{E}} \cdot \text{d \bf{l}} &=
+			-\frac{\partial \Phi_{B, S}}{\partial t}\\
+			\oint_{\partial S} \text{\bf{B}} \cdot \text{d \bf{l}} &=
+			\mu_0 {\bf{I}}_S + \mu_0 \varepsilon_0
+			 \frac{\partial \Phi_{B, S}}{\partial t}
+		\end{split}
+	\end{gather}
+	
+	You might find the environment \texttt{bmatrix} and \texttt{pmatrix}
+	useful for the following exercises.
+	\begin{gather}
+	\rho\theta = 
+		\begin{pmatrix}
+			\cos \theta & \sin \theta \\
+			-\sin \theta & \cos \theta
+		\end{pmatrix}
+		=
+		\begin{bmatrix}
+			\cos \theta & \sin \theta \\
+			-\sin \theta & \cos \theta
+		\end{bmatrix}\\
+	\begin{bmatrix}
+	\begin{tabular}{c | c c c}
+		1 & 0 & \text{$\cdots$} & 0\\
+		\hline
+		0 & \text{$\ast$} & \text{$\cdots$} & \text{$\ast$}\\
+		\vdots & \vdots & \text{$\ddots$} & \vdots\\
+		0 & \text{$\ast$} & \text{$\cdots$} & \text{$\ast$}
+	\end{tabular}
+	\end{bmatrix}
+	=
+	\begin{tabular}{|c | c c c|}
+		\hline
+		1 & 0 & \text{$\cdots$} & 0\\
+		\hline
+		0 & \text{$\ast$} & \text{$\cdots$} & \text{$\ast$}\\
+		\vdots & \vdots & \text{$\ddots$} & \vdots\\
+		0 & \text{$\ast$} & \text{$\cdots$} & \text{$\ast$}\\
+		\hline
+	\end{tabular}
+	\end{gather}
+	
+	Note the locations of the bounds
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
